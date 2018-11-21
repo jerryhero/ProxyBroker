@@ -162,7 +162,10 @@ class Broker:
         self._limit = limit
 
         tasks = [asyncio.ensure_future(self._checker.check_judges())]
+        # if data:
         task = asyncio.ensure_future(self._load(data, check=True))
+        # else:
+        # task = asyncio.ensure_future(self._grab(types, check=True))
         tasks.append(task)
         self._all_tasks.extend(tasks)
 
@@ -254,15 +257,21 @@ class Broker:
         Transform the passed data from [raw string | file-like object | list]
         to set {(host, port), ...}: {('192.168.0.1', '80'), }
         """
-        '''log.debug('Load proxies from the raw data')
-        if isinstance(data, io.TextIOWrapper):
-            data = data.read()
-        if isinstance(data, str):
-            data = IPPortPatternLine.findall(data)
-        proxies = set(data)
-        for proxy in proxies:
-            await self._handle(proxy, check=check)'''
-        await self._handle(data, check=check)
+        # log.debug('Load proxies from the raw data')
+        # print(data)
+        # if isinstance(data, io.TextIOWrapper):
+        #     data = data.read()
+        # if isinstance(data, str):
+        #     data = IPPortPatternLine.findall(data)
+        # proxies = set(data)
+        print(data)
+        # proxies = data
+        # for proxy in proxies:
+        ip = str(data).split(':')[0]
+        port = str(data).split(':')[1]
+        proxy = ip, port
+        print(proxy)
+        await self._handle(proxy, check=check)
         await self._on_check.join()
         self._done()
 
