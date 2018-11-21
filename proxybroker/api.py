@@ -162,10 +162,7 @@ class Broker:
         self._limit = limit
 
         tasks = [asyncio.ensure_future(self._checker.check_judges())]
-        if data:
-            task = asyncio.ensure_future(self._load(data, check=True))
-        else:
-            task = asyncio.ensure_future(self._grab(types, check=True))
+        task = asyncio.ensure_future(self._load(data, check=True))
         tasks.append(task)
         self._all_tasks.extend(tasks)
 
