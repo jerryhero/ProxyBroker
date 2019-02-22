@@ -148,7 +148,11 @@ class Broker:
             Changed: :attr:`types` is required.
         """
         '''ip = await self._resolver.get_real_ext_ip()'''
-        ip = "222.20.79.208"
+        import os
+        process = os.popen("curl icanhazip.com")
+        output = process.read()
+        process.close()
+        ip = str(output)
         types = _update_types(types)
 
         if not types:
