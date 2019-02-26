@@ -147,12 +147,12 @@ class Broker:
             Added: :attr:`post`, :attr:`strict`, :attr:`dnsbl`.
             Changed: :attr:`types` is required.
         """
-        '''ip = await self._resolver.get_real_ext_ip()'''
-        import os
+        ip = await self._resolver.get_real_ext_ip()
+        '''import os
         process = os.popen("curl icanhazip.com")
         output = process.read()
         process.close()
-        ip = str(output)
+        ip = str(output)'''
         types = _update_types(types)
 
         if not types:
